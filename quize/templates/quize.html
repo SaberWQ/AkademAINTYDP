@@ -1,0 +1,135 @@
+{% extends "base.html" %}
+
+{% block title %}
+    НТУ ДП - Тестування з академічної доброчесності
+{% endblock %}
+
+{% block links %}
+    <link rel="stylesheet" href="{{ url_for('quize.static', filename = 'css/quize.css') }}">
+{% endblock %}
+
+{% block content %}
+    <div class="container">
+        <!-- Заголовок -->
+        <div class="header">
+            <div class="logo">НТУ</div>
+            <h1 class="title">Чесна гра</h1>
+            <p class="subtitle">від традицій Політехніки до сучасної науки</p>
+            <p style="color: #b0c4de;">Інтелектуальне змагання між факультетами НТУ "Дніпровська політехніка"</p>
+        </div>
+
+        <!-- Екран привітання -->
+        <div class="welcome-screen" id="welcomeScreen">
+            <div class="quiz-section">
+                <h2 class="round-title">
+                    <span class="round-number">🎓</span>
+                    Вітаємо в інтелектуальному батлі!
+                </h2>
+                <div class="question">
+                    <p class="question-text">
+                        Цей квіз складається з 4 раундів по 12 питань у кожному. Питання ускладнюються поступово:
+                    </p>
+                    <div class="round-summary">
+                        <div class="round-card">
+                            <div class="round-performance">📚</div>
+                            <h4>Раунд 1</h4>
+                            <p>Минуле і сучасність Політехніки</p>
+                            <div class="difficulty-indicator difficulty-easy">Легкий → Середній</div>
+                        </div>
+                        <div class="round-card">
+                            <div class="round-performance">⚖️</div>
+                            <h4>Раунд 2</h4>
+                            <p>Академічна доброчесність у дії</p>
+                            <div class="difficulty-indicator difficulty-medium">Середній → Складний</div>
+                        </div>
+                        <div class="round-card">
+                            <div class="round-performance">🎭</div>
+                            <h4>Раунд 3</h4>
+                            <p>Доброчесність у світі мистецтва</p>
+                            <div class="difficulty-indicator difficulty-hard">Складний → Експерт</div>
+                        </div>
+                        <div class="round-card">
+                            <div class="round-performance">⚡</div>
+                            <h4>Раунд 4</h4>
+                            <p>Інтелектуальний двобій (бліц)</p>
+                            <div class="difficulty-indicator difficulty-expert">Експерт рівень</div>
+                        </div>
+                    </div>
+                    <p class="question-text">Готові перевірити свої знання? Удачі!</p>
+                </div>
+                <button class="start-quiz-btn" onclick="startQuiz()">Почати квіз 🚀</button>
+            </div>
+        </div>
+
+        <!-- Екран квізу -->
+        <div class="quiz-screen" id="quizScreen">
+            <!-- Прогрес бар -->
+            <div class="progress-bar">
+                <div class="progress-fill" id="progressBar"></div>
+            </div>
+
+            <!-- Рахунок -->
+            <div class="score-board">
+                <div class="score" id="scoreDisplay">Рахунок: 0/0</div>
+            </div>
+
+            <!-- Питання -->
+            <div class="quiz-section" id="currentQuestion">
+                <!-- Питання будуть динамічно вставлені тут -->
+            </div>
+        </div>
+
+        <!-- Екран результатів раунду -->
+        <div class="round-results-screen" id="roundResultsScreen">
+            <div class="quiz-section">
+                <div class="results-medal" id="roundMedal">🏆</div>
+                <h2 class="round-title">
+                    <span class="round-number" id="roundResultNumber">1</span>
+                    <span id="roundResultTitle">Раунд завершено!</span>
+                </h2>
+                <div class="results-text">Ваш результат у цьому раунді:</div>
+                <div class="score" id="roundScore" style="font-size: 3em; margin: 20px 0;">0/12</div>
+                
+                <div class="detailed-breakdown" id="roundBreakdown">
+                    <!-- Детальна статистика раунду -->
+                </div>
+                
+                <div class="question" id="roundFeedback">
+                    <p class="question-text">Чудовий результат!</p>
+                </div>
+                <button class="continue-btn" id="continueBtn" onclick="continueToNextRound()">Продовжити до наступного раунду 🎯</button>
+            </div>
+        </div>
+
+        <!-- Екран фінальних результатів -->
+        <div class="final-results-screen" id="finalResultsScreen">
+            <div class="quiz-section">
+                <div class="results-medal" id="finalMedal">🏆</div>
+                <h2 class="round-title">
+                    <span class="round-number">🎉</span>
+                    Вітаємо з завершенням всіх раундів!
+                </h2>
+                <div class="results-text">Загальний результат:</div>
+                <div class="score" id="finalScore" style="font-size: 3em; margin: 20px 0;">0/48</div>
+                
+                <!-- Підсумок всіх раундів -->
+                <div class="round-summary" id="allRoundsSummary">
+                    <!-- Результати всіх раундів -->
+                </div>
+                
+                <div class="detailed-breakdown" id="finalBreakdown">
+                    <!-- Загальна статистика -->
+                </div>
+                
+                <div class="question" id="finalFeedback">
+                    <p class="question-text" id="finalMessage">Дякуємо за участь!</p>
+                </div>
+                <button class="start-quiz-btn" onclick="restartQuiz()">Пройти знову 🔄</button>
+            </div>
+        </div>
+        </div>
+{% endblock %}
+
+{% block scripts %}
+    <script src="{{ url_for('quize.static', filename = 'js/quize.js') }}"></script>
+{% endblock %}

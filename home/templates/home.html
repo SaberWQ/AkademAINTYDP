@@ -1,0 +1,134 @@
+{% extends "base.html" %}
+
+{% block title %}
+    НТУ ДП - Академічна доброчесність
+{% endblock %}
+
+{% block links %}
+<link rel="stylesheet" href="{{ url_for('home.static', filename = 'css/home.css') }}">
+{% endblock %}
+
+{% block content %}
+<div class="container">
+    <!-- Заголовок -->
+    <div class="header">
+        <div class="logo">НТУ</div>
+        <h1 class="title">Академічна доброчесність</h1>
+        <p class="subtitle">Національний технічний університет "Дніпровська політехніка"</p>
+        <p style="color: #b0c4de;">Навчально-методичний комплекс з академічної доброчесності</p>
+    </div>
+
+    <!-- Статистика -->
+    <div class="stats-section" id="statsSection">
+        <div class="stat-card">
+            <div class="stat-number">12</div>
+            <div class="stat-label">Питань у квізі</div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-number">4</div>
+            <div class="stat-label">Тематичних раундів</div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-number">24/7</div>
+            <div class="stat-label">ШІ-асистент</div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-number">100%</div>
+            <div class="stat-label">Безкоштовно</div>
+        </div>
+    </div>
+
+    <!-- Кнопка повернення -->
+    <button class="back-button" id="backButton" onclick="showMainPage()">
+        ← Повернутися до головної
+    </button>
+
+    <!-- Навігація -->
+    <div class="navigation" id="mainNavigation">
+        <div class="nav-card" >
+            <div class="nav-icon">🎓</div>
+            <h3 class="nav-title">Інтерактивний квіз</h3>
+            <p class="nav-description">
+                Пройдіть захоплюючий квіз з 4 тематичних раундів: від історії Політехніки до принципів академічної доброчесності. Перевірте свої знання!
+            </p>
+            <button class="nav-button" href="/quize">Почати тестування 🚀</button>
+        </div>
+
+        <div class="nav-card" onclick="openProfile()">
+            <div class="nav-icon">🤖</div>
+            <h3 class="nav-title">ШІ-асистент</h3>
+            <p class="nav-description">
+                Персональний помічник з академічної доброчесності. Задавайте питання, отримуйте консультації та поради щодо етичних аспектів навчання.
+            </p>
+            <a class="nav-button" id="linkbutton" >Відкрити чат 💬</a>
+            <!-- href="{{ url_for('static', filename='../ai/templates/ai.html') }}" -->
+        </div>
+
+        <div class="nav-card" onclick="showResources()">
+            <div class="nav-icon">📚</div>
+            <h3 class="nav-title">Навчальні матеріали</h3>
+            <p class="nav-description">
+                Корисні ресурси, посібники та рекомендації з академічної доброчесності. Дізнайтеся більше про принципи чесного навчання.
+            </p>
+            <button class="nav-button">Переглянути ресурси 📖</button>
+        </div>
+
+        <div class="nav-card" onclick="showContact()">
+            <div class="nav-icon">📞</div>
+            <h3 class="nav-title">Контакти</h3>
+            <p class="nav-description">
+                Зв'яжіться з відповідальними за академічну доброчесність у НТУ "ДП". Отримайте професійну консультацію від експертів.
+            </p>
+            <button class="nav-button">Контактна інформація ✉️</button>
+        </div>
+    </div>
+
+    <!-- Профіль з чатом -->
+    <!-- <div class="profile-section" id="profileSection">
+        <div class="profile-header">
+            <div class="profile-avatar">🤖</div>
+            <div class="profile-info">
+                <h3>ШІ-асистент НТУ "ДП"</h3>
+                <p>Персональний консультант з академічної доброчесності</p>
+                <p style="color: #ffd700; font-size: 0.9em;">● Онлайн - готовий допомогти!</p>
+            </div>
+        </div>
+        
+        <div class="chat-container">
+            <div class="chat-messages" id="chatMessages">
+                <div class="message assistant">
+                    👋 Вітаю! Я - ваш персональний ШІ-асистент з питань академічної доброчесності в НТУ "Дніпровська політехніка".
+                    
+                    Я можу допомогти вам з:
+                    • Поясненням принципів академічної доброчесності
+                    • Правилами цитування та посилань
+                    • Уникненням плагіату
+                    • Етичними аспектами наукової роботи
+                    • Підготовкою до квізу
+                    
+                    Задавайте будь-які питання! 📚
+                </div>
+            </div>
+            
+            <div class="typing-indicator" id="typingIndicator">
+                <span>ШІ-асистент друкує</span>
+                <div class="typing-dots">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+            </div>
+            
+            <div class="chat-input-container">
+                <input type="text" class="chat-input" id="chatInput" placeholder="Напишіть ваше питання..." maxlength="500">
+                <button class="send-button" id="sendButton" onclick="sendMessage()">Надіслати</button>
+            </div>
+        </div>
+    </div> -->
+</div>
+
+{% endblock %}
+
+{% block scripts %}
+    <script src="{{ url_for('home.static', filename = 'js/home.js') }}"></script>
+{% endblock %}

@@ -1,0 +1,122 @@
+{% extends "base.html" %}
+
+{% block title %}
+    НТУ ДП - Академічна доброчесність
+{% endblock %}
+
+{% block links %}
+<link rel="stylesheet" href="{{ url_for('ai.static', filename = 'css/ai.css') }}">
+{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="header" onclick="openProfile()" >
+        <a class="back-button" href="/">← Повернутися до головної</a>
+        {% if current_user.is_authenticated %}
+            <div class="user-info" onclick="Logout()">
+                <span>Привіт, {{ current_user.username }}!</span>
+                <a href="/logout" class="logout-button">🚪 Вийти</a>
+            </div>
+        {% endif %}
+    </div>
+
+    <div class="profile-section">
+        <div class="profile-header">
+            <div class="profile-avatar">🎓</div>
+            <div class="profile-info">
+                <h1>ШІ-асистент НТУ "ДП"</h1>
+                <p>Персональний консультант з академічної доброчесності</p>
+                <div class="status">
+                    <div class="status-dot"></div>
+                    Онлайн - готовий допомогти
+                </div>
+            </div>
+        </div>
+    </div>
+
+    {% if current_user.is_authenticated %}
+    <div class="user-welcome">
+        <p>👋 Вітаю, <strong>{{ current_user.username }}</strong>!</p>
+        {% if current_user.group %}
+        <p>Група: {{ current_user.group }}</p>
+        {% endif %}
+        <p>Готовий допомогти вам з питань академічної доброчесності 📚</p>
+    </div>
+    {% endif %}
+
+    <div class="chat-container">
+        <div class="chat-header">
+            <h3>💬 Чат з ШІ-асистентом</h3>
+            <div class="chat-actions">
+                <button id="clearHistoryBtn" class="clear-btn" onclick="clearChatHistory()">
+                    🗑️ Очистити історію
+                </button>
+            </div>
+        </div>
+
+        <div class="chat-messages" id="chatMessages">
+            <div class="welcome-message">
+                <p>👋 <strong>Вітаю! Я - ваш персональний ШІ-асистент з питань академічної доброчесності в НТУ "Дніпровська політехніка".</strong></p>
+                <p style="margin-top: 15px;">Я можу допомогти вам з:</p>
+                <ul style="margin: 10px 0; padding-left: 20px;">
+                    <li>• Поясненням принципів академічної доброчесності</li>
+                    <li>• Правилами цитування та посилань</li>
+                    <li>• Уникненням плагіату</li>
+                    <li>• Етичними аспектами наукової роботи</li>
+                    <li>• Підготовкою до квізу</li>
+                </ul>
+                <p style="margin-top: 15px;"><strong>Задавайте будь-які питання!</strong> 📚</p>
+            </div>
+
+            <div class="message assistant">
+                <div class="message-content">
+                    {% if current_user.is_authenticated %}
+                        Вітаю, {{ current_user.username }}! 🎉 Готовий відповісти на всі ваші питання про академічну доброчесність. З чого почнемо?
+                    {% else %}
+                        Вітаю вас у чаті! 🎉 Для повноцінної роботи з асистентом, будь ласка, увійдіть до системи.
+                    {% endif %}
+                </div>
+            </div>
+
+            <div class="quick-actions">
+                {% for response in quick_responses %}
+                <div class="quick-action" onclick="sendQuickMessage('{{ response.message }}')">
+                    {{ response.icon }} {{ response.title.split(' ', 1)[1] }}
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+
+        <div class="typing-indicator" id="typingIndicator">
+            <div class="typing-content">
+                <div class="typing-dots">
+                    <div class="dot"></div>
+                    <div class="dot"></div>
+                    <div class="dot"></div>
+                </div>
+                <span>ШІ-асистент друкує...</span>
+            </div>
+        </div>
+
+        <div class="chat-input-container">
+            {% if current_user.is_authenticated %}
+            <div class="input-wrapper">
+                <textarea class="chat-input" id="chatInput" placeholder="Напишіть ваше питання..." rows="1"></textarea>
+                <button class="send-button" id="sendButton" onclick="sendMessage()">
+                    📤
+                </button>
+            </div>
+            {% else %}
+            <div class="login-prompt" onclick="Autorization()" >
+                <p>Для використання ШІ-асистента потрібно увійти до системи</p>
+                <a class="login-btn" href="/registration">🔐 Увійти</a>
+            </div>
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+    <script src="{{ url_for('ai.static', filename = 'js/ai.js') }}"></script>
+{% endblock %}
