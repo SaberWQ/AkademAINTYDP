@@ -9,3 +9,8 @@ def main():
         
 if __name__ == '__main__':
     main() 
+
+#     …or push an existing repository from the command line
+# git remote add origin https://github.com/SaberWQ/AkademAINTYDP.git
+# git branch -M main
+# git push -u origin main
