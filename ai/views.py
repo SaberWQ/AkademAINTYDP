@@ -195,6 +195,48 @@ def api_chat():
             'error_type': 'internal_error'
         }), 500
 
+@ai.route('/bot-response', methods=['POST'])
+def bot_response():
+    try:
+        data = request.get_json()
+        user_message = data.get('message', '').strip()
+
+        if not user_message:
+            return jsonify({'error': 'Повідомлення не може бути порожнім'}), 400
+
+        # Логіка відповіді бота (приклад)
+        bot_reply = f"Ви сказали: {user_message}. Це тестова відповідь від бота."
+
+        # Логування використання токенів (опціонально)
+        tokens_used = len(user_message.split())  # Кількість слів у повідомленні
+
+        return jsonify({
+            'response': bot_reply,
+            'tokens_used': tokens_used,
+            'timestamp': datetime.now().isoformat()
+        }), 200
+
+    except Exception as e:
+        return jsonify({'error': f'Помилка сервера: {str(e)}'}), 500
+
+chat_history = []  # Тимчасове сховище для історії чату (можна замінити на базу даних)
+
+@ai.route('/api/chat-history', methods=['GET'])
+def get_chat_history():
+    try:
+        return jsonify({'history': chat_history}), 200
+    except Exception as e:
+        return jsonify({'error': f'Помилка сервера: {str(e)}'}), 500
+
+@ai.route('/api/clear-history', methods=['POST'])
+def clear_chat_history():
+    try:
+        global chat_history
+        chat_history = []  # Очищення історії
+        return jsonify({'message': 'Історію чату очищено'}), 200
+    except Exception as e:
+        return jsonify({'error': f'Помилка сервера: {str(e)}'}), 500
+
 @ai.route('/api/quick-responses', methods=['GET'])
 def api_quick_responses():
     """API ендпоінт для отримання швидких відповідей"""
